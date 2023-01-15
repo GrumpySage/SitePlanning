@@ -72,8 +72,8 @@ Service Binding of Sum View for external consumption.
 ![image](https://user-images.githubusercontent.com/31987339/212562619-1d51963a-1cc7-43ca-b307-3d21a7b48a77.png)
 
 
-### Live demo of user facing app:
-- Auto-press GO button
+### Live demo of user facing apps
+- Added that "Go" button is pressed automatically in the Fiori app.
 
 ## Design decisions
 - If job receives data from endpoints, it deletes the old data, since the API is the principal holder of data. We don't want to duplicate data as much as possible.
