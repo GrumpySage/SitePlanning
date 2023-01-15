@@ -1,0 +1,4 @@
+@EndUserText.label: 'Supply forecast overview'
+define service YSP_SUP_FORECAST_OVERVIEW_SD {
+  expose YSP_SUPPLY_FORECAST_OVERVIEW;
+}

@@ -1,0 +1,4 @@
+@EndUserText.label: 'Aggregated supply forecast sum view'
+define service YSP_SUPPLY_FORECAST_SUM_SD {
+  expose YSP_SUPPLY_FORECAST_SUM;
+}
