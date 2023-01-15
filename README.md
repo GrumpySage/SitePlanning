@@ -15,11 +15,12 @@ I made the following assumptions:
 
 ## Overview of solution
 ![Object Diagram](https://user-images.githubusercontent.com/31987339/212538158-e8ad169c-4188-49bb-bc94-985bb125abe3.png)
-
+Overview of the objects in this solution. They are detailed below:
 
 ##### YCL_SUPPLY_FORECAST
 Main class, should be scheduled hourly.
 Gets data from APIs using YCL_SP_DATA_PROVIDER.
+Once data is received data from the endpoints, the previously loaded data is deleted. The API endpoint is the principal holder of data and we as much as possible do not want to duplicate data.
 
 ##### YCL_SP_DATA_PROVIDER
 Gets PO and STO data from APIs.
@@ -47,11 +48,12 @@ Service Binding of Overview for external consumption.
 
 ### Overview page for PO/STO
 ![image](https://user-images.githubusercontent.com/31987339/212562649-b4f7d542-7468-4479-bd1a-bcced8c05066.png)
+The overview page shows the most important pieces of information, some (quantity and dates) are calculated based on the specific PO and STO. The user can then drill down into the details page to get more information.
 
 ### Detail page for PO/STO
 ![image](https://user-images.githubusercontent.com/31987339/212562677-a6d2c835-e0eb-459f-b0dd-3a125c06b82f.png)
+The detail page shows all the information from the PO and STO tables.
 
----
 
 ##### YSP_SUP_FORECAST
 Database table holding the summation of POs and STOs for each material/plant combination.
@@ -70,13 +72,10 @@ Service Binding of Sum View for external consumption.
 
 ### Overview page summed PO/STOs
 ![image](https://user-images.githubusercontent.com/31987339/212562619-1d51963a-1cc7-43ca-b307-3d21a7b48a77.png)
-
+The Sum View combines PO's for a material/plant together and sees if STO's for that plant can be fulfilled.
 
 ### Live demo of user facing apps
 - Added that "Go" button is pressed automatically in the Fiori app.
-
-## Design decisions
-- If job receives data from endpoints, it deletes the old data, since the API is the principal holder of data. We don't want to duplicate data as much as possible.
 
 
 ## Limitations and considerations
