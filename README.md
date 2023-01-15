@@ -23,7 +23,7 @@ Gets data from APIs using YCL_SP_DATA_PROVIDER.
 Once data is received data from the endpoints, the previously loaded data is deleted. The API endpoint is the principal holder of data and we as much as possible do not want to duplicate data.
 
 ##### YCL_SP_DATA_PROVIDER
-Gets PO and STO data from APIs.
+Gets PO and STO data from APIs. Uses an Enum when being instantiated to determine which endpoint to get data from, making it fairly simple to expand.
 
 ##### YSP_PROD_ORDER
 Database table, holds PO information pulled from API.
