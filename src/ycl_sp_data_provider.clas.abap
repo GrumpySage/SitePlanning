@@ -37,7 +37,7 @@ CLASS ycl_sp_data_provider DEFINITION
 
     METHODS:
       create_client_and_fetch
-        IMPORTING url                TYPE string
+        IMPORTING iv_url             TYPE string
         RETURNING VALUE(rv_response) TYPE string
         RAISING   cx_static_check,
       mocked_po_data
@@ -68,15 +68,15 @@ CLASS ycl_sp_data_provider IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD create_client_and_fetch.
-    DATA(dest) = cl_http_destination_provider=>create_by_url( url ).
-    DATA(client) = cl_web_http_client_manager=>create_by_http_destination( dest ).
+    DATA(lo_dest) = cl_http_destination_provider=>create_by_url( iv_url ).
+    DATA(lo_client) = cl_web_http_client_manager=>create_by_http_destination( lo_dest ).
 *    Commented out as we do not have the actual endpoints. When we do, add in this line and remove the SWITCH statement.
-*    DATA(response) = client->execute( if_web_http_client=>get )->get_text(  ).
-    rv_response = SWITCH #( url
+*    DATA(rv_response) = lo_client->execute( if_web_http_client=>get )->get_text(  ).
+    rv_response = SWITCH #( iv_url
       WHEN lc_po_endpoint THEN mocked_po_data( )
       WHEN lc_sto_endpoint THEN mocked_sto_data( )
       ELSE '' ).
-    client->close(  ).
+    lo_client->close(  ).
 
   ENDMETHOD.
 

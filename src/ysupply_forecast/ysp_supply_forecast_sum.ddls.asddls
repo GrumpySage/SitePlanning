@@ -35,7 +35,7 @@ define view YSP_SUPPLY_FORECAST_SUM
       @UI: {
         lineItem: [{ position: 30, criticality: 'quantity_criticality', importance: #HIGH }],
         selectionField: [{position: 20 }],
-        dataPoint: {title: 'Quan', criticality: 'Quantity_Criticality', criticalityRepresentation: #WITH_ICON }
+        dataPoint: {title: 'Quantity', criticality: 'quantity_criticality', criticalityRepresentation: #WITH_ICON }
       }
       quantity,
 
