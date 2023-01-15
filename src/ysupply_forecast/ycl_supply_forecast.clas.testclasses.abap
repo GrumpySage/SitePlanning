@@ -11,6 +11,7 @@ CLASS ltc_supply_forecast DEFINITION FINAL FOR TESTING
   PRIVATE SECTION.
     METHODS:
       empty_po_data FOR TESTING RAISING cx_static_check.
+      " TODO: add more unit tests here.
 
     DATA: test_double TYPE REF TO ycl_sp_data_provider,
           cut         TYPE REF TO ycl_supply_forecast.
