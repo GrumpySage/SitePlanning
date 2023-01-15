@@ -11,7 +11,7 @@ Especially when dealing with a solution for an end user, I would much prefer to 
 I made the following assumptions:
 - The end user wants to get an easy overview of the Stock Transport Orders to see whether a material is available on the date and in the quantity needed.
 - It would be good to see if a material is produced very close to being needed (higher risk if there is a delay) or is being produced too far ahead of schedule (as this will take up warehouse space).
-- Quantity can be negative.
+- Quantity of STO can be greater than PO.
 
 ## Overview of solution
 ![Object Diagram](https://user-images.githubusercontent.com/31987339/212538158-e8ad169c-4188-49bb-bc94-985bb125abe3.png)
