@@ -100,3 +100,4 @@ The Sum View combines PO's for a material/plant together and sees if STO's for t
 - Additional unit tests.
 - There might be several plants that want the same material and/or several production orders for a single material. Could look into grouping this data to give an easier overview that you can then drill down into.
 - Certain information, such as URLs for APIs and authentication details should come from a customizing table rather than being hardcoded.
+- Add timestamp for when data was last loaded, and display it on the UI.
