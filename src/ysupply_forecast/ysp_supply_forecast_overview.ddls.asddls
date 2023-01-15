@@ -91,6 +91,7 @@ define view YSP_SUPPLY_FORECAST_OVERVIEW
       }
       ReceivingPlant,
 
+// TODO: The below values should probably be put in a customizing table instead of being hardcoded.
       case
         when QuantityDifference < 0 then 1
         else 3
