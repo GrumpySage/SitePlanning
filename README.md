@@ -1,24 +1,28 @@
-# Case: Site Planning
+# Case: Site Planning (Supply Forecast)
 - by Jonas Neubert Pedersen
 
 ## Disclaimers
-I do not have much experience with production planning, so some of my assumptions, terms and such may not be quite correct.
+I do not have much experience with production planning, so some of my assumptions, terms and similar may not be quite correct.
 
 While I am presenting a lot of text, I would prefer you to listen rather than read.
 
 Don't hesitate to ask questions - just interrupt me :)
 
 ## Assumptions
-Especially when dealing with a solution for an end user, I would much prefer to communicate with them so a solution can be created that caters to their needs and wishes.
+Especially when dealing with a solution for an end user, I would much prefer to communicate with them so a solution can be created that caters to their needs and wishes - both in regards to functionality and appearance.
 
 I made the following assumptions:
 - The end user wants to get an easy overview of the Stock Transport Orders to see whether a material is available on the date and in the quantity needed.
-- It would be good to see if a material is produced very close to being needed (higher risk if there is a delay) or is being produced too far ahead of schedule (as this will take up warehouse space).
+- It would be good to see if a material is produced very close to being needed (higher risk if there is a delay) or is being produced far ahead of use (as this will take up warehouse space).
 - Quantity of STO can be greater than PO.
 
 ## Overview of solution
+I've tried to build a solution that is easy to continue on, if the scope were to expand (getting data from more endpoints, more end-user views, etc). The overview is detailed here.
+
 ![Object Diagram](https://user-images.githubusercontent.com/31987339/212538158-e8ad169c-4188-49bb-bc94-985bb125abe3.png)
-Overview of the objects in this solution. They are detailed below:
+
+
+Each object is briefly detailed below.
 
 ##### YCL_SUPPLY_FORECAST
 Main class, should be scheduled hourly.
@@ -27,8 +31,12 @@ Gets data from APIs using YCL_SP_DATA_PROVIDER.
 
 Once data is received data from the endpoints, the previously loaded data is deleted. The API endpoint is the principal holder of data and we as much as possible do not want to duplicate data.
 
+This class also performs the calculations for the Sum View (see below).
+
 ##### YCL_SP_DATA_PROVIDER
-Gets PO and STO data from APIs. Uses an Enum when being instantiated to determine which endpoint to get data from, making it fairly simple to expand.
+Gets PO and STO data from APIs.
+
+Uses an Enum when being instantiated to determine which endpoint to get data from, making it fairly simple to expand and helps keep the responsibilities within the class.
 
 ##### YSP_PROD_ORDER
 Database table, holds PO information pulled from API.
@@ -37,10 +45,22 @@ Database table, holds PO information pulled from API.
 Database table, holds STO information pulled from API.
 
 ##### YSP_SUPPLY_FORECAST_JOIN
-CDS view that joins database tables YSP_PROD_ORDER and YSP_STO. Also calculates criticality color for overview.
+CDS view that joins database tables YSP_PROD_ORDER and YSP_STO.
+
+Calculates the quantity difference between PO and STO, and the days between Order Finish Date and Requirement Date, for use in YSP_SUPPLY_FORECAST_OVERVIEW.
 
 ##### YSP_SUPPLY_FORECAST_OVERVIEW
-CDS view, gets data through YSP_SUPPLY_FORECAST_JOIN, handles design of the UI.
+CDS view, gets data through YSP_SUPPLY_FORECAST_JOIN.
+
+Handles design of the UI and calculates criticality color, using the following rules:
+###### Quantity
+If STO quantity > PO quantity: Show red error
+Else: Show green checkmark
+
+###### Requirement Date vs Order Finish Date
+If Requirement Date is before Order Finish Date: Show red error
+If Requirement Date is less than 5 days after or more than 30 days after Order Finish Date: Show yellow warning
+Else: Show green checkmark
 
 ##### YSP_SUP_FORECAST_OVERVIEW_SD
 Service Definition of Overview.
@@ -53,7 +73,11 @@ Service Binding of Overview for external consumption.
 
 ### Overview page for PO/STO
 ![image](https://user-images.githubusercontent.com/31987339/212562649-b4f7d542-7468-4479-bd1a-bcced8c05066.png)
-The overview page shows the most important pieces of information, some (quantity and dates) are calculated based on the specific PO and STO. The user can then drill down into the details page to get more information.
+The overview page shows the most important pieces of information.
+
+Quantity and days are calculated based on the specific PO and STO.
+
+The user can then drill down into the details page to get more information and see the original values (see below).
 
 ### Detail page for PO/STO
 ![image](https://user-images.githubusercontent.com/31987339/212562677-a6d2c835-e0eb-459f-b0dd-3a125c06b82f.png)
