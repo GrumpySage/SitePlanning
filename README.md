@@ -3,8 +3,8 @@
 
 ## Disclaimers
 I do not have much experience with production planning, so some of my assumptions, terms and such may not be quite correct.
-Listen, do not read. 
-Ask if there are any questions.
+While I am presenting a lot of text, I would prefer you to listen rather than read.
+Don't hesitate to ask questions - just interrupt me :)
 
 ## Assumptions
 Especially when dealing with a solution for an end user, I would much prefer to communicate with them so a solution can be created that caters to their needs and wishes.
