@@ -74,7 +74,7 @@ Service Binding of Sum View for external consumption.
 ![image](https://user-images.githubusercontent.com/31987339/212562619-1d51963a-1cc7-43ca-b307-3d21a7b48a77.png)
 The Sum View combines PO's for a material/plant together and sees if STO's for that plant can be fulfilled.
 
-### Live demo of user facing apps
+## Live demo of user facing apps
 - Added that "Go" button is pressed automatically in the Fiori app.
 
 
