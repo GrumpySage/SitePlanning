@@ -104,29 +104,29 @@ Service Binding of Sum View for external consumption.
 The Sum View combines PO's for a material/plant together and sees if STO's for that plant can be fulfilled.
 
 ## Live demo of user facing apps
-- Added that "Go" button is pressed automatically in the Fiori app.
+- Added that data is automatically loaded in the Fiori app.
 
 
 ## Limitations and considerations
-- We might get data from one API, but not the other. In such a case there is no longer a 1-to-1 link between order numbers (which the application assumes right now). In addition, it might not be the case in a live environment. Solution could be to match on material instead of order number.
+- We might get data from one API, but not the other. In such a case there is no longer a 1-to-1 link between order numbers (which the application assumes right now). In addition, this assumption might not be the case in a live environment. A solution could be to match on material instead of order number.
 - Currently there is not a lot of validation of the data. How much we want to implement depends how much we trust the sender. 
   - Could compare the PO and STO lists to ensure they are similar.
-  - Could check for incorrect data (for example quantity of 0).
-- Error handling is implemented, but I do not know how errors are caught within the greater system, so currently they are just being output to the console. How would I as the maintainer of the application be notified that something is failing?
+  - Could check for incorrect data (for example quantity of 0, production orders that should already have finished).
+- Error handling is implemented, but I do not know how errors are caught within the greater system, so currently they are just being output to the console. Need to set up so I as the maintainer of the application will be notified that something is failing.
 - JSON serialization does not complain if the JSON does not match the ABAP structure. If the JSON changes, we'd have to change the code on our end too.
-  - With actual endpoints, I would have set up Service Consumers using the metadata, which might also assist with the JSON serialization. Instead I opted to make a simpler class.
-- Job scheduling is not set up, depends on the greater system.
-- No authentication is set up for calls to the API.
+  - With actual endpoints, I would have set up Service Consumers using the API metadata, which might also assist with the JSON serialization. Instead I opted to make a simpler class.
 - Could not add Fiori app in SAP HANA, did it in BAS and connected them.
 - I went back and forth on creating a new class for handling API calls. In the end I decided to make one that could work to handle API calls to all kinds of external services across Site Planning. How specialized the class should be (and whether it should even exist) depends on the greater solution(s), current and future, within this area.
 
 
 ## Further development
-- Sorting is not implemented, for example push to the top either orders with the closest requirement date or the orders that have the largest discrepancy.
+- Sorting is not implemented, could sort either on orders with the closest requirement date, or orders that have the largest discrepancy.
 - Users being in charge of certain plants, only being shown what is relevant to them.
 - See if supply greatly outweighs demand.
+- There might be several plants that want the same material and/or several production orders for a single material. Could look into grouping this data to give an easier overview that you can then drill down into.
+- Add timestamp for when data was last loaded, and display it on the UI.
 - Unit of measure on quantity.
 - Additional unit tests.
-- There might be several plants that want the same material and/or several production orders for a single material. Could look into grouping this data to give an easier overview that you can then drill down into.
 - Certain information, such as URLs for APIs and authentication details should come from a customizing table rather than being hardcoded.
-- Add timestamp for when data was last loaded, and display it on the UI.
+- No authentication is set up for calls to the API.
+- Job scheduling is not set up.
