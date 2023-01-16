@@ -3,11 +3,14 @@
 
 ## Disclaimers
 I do not have much experience with production planning, so some of my assumptions, terms and such may not be quite correct.
+
 While I am presenting a lot of text, I would prefer you to listen rather than read.
+
 Don't hesitate to ask questions - just interrupt me :)
 
 ## Assumptions
 Especially when dealing with a solution for an end user, I would much prefer to communicate with them so a solution can be created that caters to their needs and wishes.
+
 I made the following assumptions:
 - The end user wants to get an easy overview of the Stock Transport Orders to see whether a material is available on the date and in the quantity needed.
 - It would be good to see if a material is produced very close to being needed (higher risk if there is a delay) or is being produced too far ahead of schedule (as this will take up warehouse space).
@@ -19,7 +22,9 @@ Overview of the objects in this solution. They are detailed below:
 
 ##### YCL_SUPPLY_FORECAST
 Main class, should be scheduled hourly.
+
 Gets data from APIs using YCL_SP_DATA_PROVIDER.
+
 Once data is received data from the endpoints, the previously loaded data is deleted. The API endpoint is the principal holder of data and we as much as possible do not want to duplicate data.
 
 ##### YCL_SP_DATA_PROVIDER
